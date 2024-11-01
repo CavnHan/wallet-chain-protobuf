@@ -52,13 +52,13 @@ message Log {
   bool removed = 9;
 }
 
-message SupportCoinsRequest{
+message SupportChainsRequest{
   string consumer_token = 1;
   string chain = 2;
   string network = 3;
 }
 
-message SupportCoinsResponse {
+message SupportChainsResponse {
   ReturnCode code = 1;
   string msg = 2;
   bool support = 3;
@@ -326,7 +326,7 @@ message ExtraDataResponse {
 }
 
 service WalletAccountService {
-  rpc getSupportCoins(SupportCoinsRequest) returns (SupportCoinsResponse) {}
+  rpc getSupportChains(SupportChainsRequest) returns (SupportChainsResponse) {}
   rpc convertAddress(ConvertAddressRequest) returns(ConvertAddressResponse){}
   rpc validAddress(ValidAddressRequest) returns(ValidAddressResponse){}
   rpc getBlockByNumber(BlockNumberRequest) returns (BlockResponse) {}
