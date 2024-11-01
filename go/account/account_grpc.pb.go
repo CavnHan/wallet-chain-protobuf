@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	WalletAccountService_GetSupportCoins_FullMethodName         = "/proto.WalletAccountService/getSupportCoins"
+	WalletAccountService_GetSupportChains_FullMethodName        = "/proto.WalletAccountService/getSupportChains"
 	WalletAccountService_ConvertAddress_FullMethodName          = "/proto.WalletAccountService/convertAddress"
 	WalletAccountService_ValidAddress_FullMethodName            = "/proto.WalletAccountService/validAddress"
 	WalletAccountService_GetBlockByNumber_FullMethodName        = "/proto.WalletAccountService/getBlockByNumber"
@@ -43,7 +43,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WalletAccountServiceClient interface {
-	GetSupportCoins(ctx context.Context, in *SupportCoinsRequest, opts ...grpc.CallOption) (*SupportCoinsResponse, error)
+	GetSupportChains(ctx context.Context, in *SupportChainsRequest, opts ...grpc.CallOption) (*SupportChainsResponse, error)
 	ConvertAddress(ctx context.Context, in *ConvertAddressRequest, opts ...grpc.CallOption) (*ConvertAddressResponse, error)
 	ValidAddress(ctx context.Context, in *ValidAddressRequest, opts ...grpc.CallOption) (*ValidAddressResponse, error)
 	GetBlockByNumber(ctx context.Context, in *BlockNumberRequest, opts ...grpc.CallOption) (*BlockResponse, error)
@@ -71,10 +71,10 @@ func NewWalletAccountServiceClient(cc grpc.ClientConnInterface) WalletAccountSer
 	return &walletAccountServiceClient{cc}
 }
 
-func (c *walletAccountServiceClient) GetSupportCoins(ctx context.Context, in *SupportCoinsRequest, opts ...grpc.CallOption) (*SupportCoinsResponse, error) {
+func (c *walletAccountServiceClient) GetSupportChains(ctx context.Context, in *SupportChainsRequest, opts ...grpc.CallOption) (*SupportChainsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SupportCoinsResponse)
-	err := c.cc.Invoke(ctx, WalletAccountService_GetSupportCoins_FullMethodName, in, out, cOpts...)
+	out := new(SupportChainsResponse)
+	err := c.cc.Invoke(ctx, WalletAccountService_GetSupportChains_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +255,7 @@ func (c *walletAccountServiceClient) GetExtraData(ctx context.Context, in *Extra
 // All implementations should embed UnimplementedWalletAccountServiceServer
 // for forward compatibility.
 type WalletAccountServiceServer interface {
-	GetSupportCoins(context.Context, *SupportCoinsRequest) (*SupportCoinsResponse, error)
+	GetSupportChains(context.Context, *SupportChainsRequest) (*SupportChainsResponse, error)
 	ConvertAddress(context.Context, *ConvertAddressRequest) (*ConvertAddressResponse, error)
 	ValidAddress(context.Context, *ValidAddressRequest) (*ValidAddressResponse, error)
 	GetBlockByNumber(context.Context, *BlockNumberRequest) (*BlockResponse, error)
@@ -282,8 +282,8 @@ type WalletAccountServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedWalletAccountServiceServer struct{}
 
-func (UnimplementedWalletAccountServiceServer) GetSupportCoins(context.Context, *SupportCoinsRequest) (*SupportCoinsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSupportCoins not implemented")
+func (UnimplementedWalletAccountServiceServer) GetSupportChains(context.Context, *SupportChainsRequest) (*SupportChainsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSupportChains not implemented")
 }
 func (UnimplementedWalletAccountServiceServer) ConvertAddress(context.Context, *ConvertAddressRequest) (*ConvertAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConvertAddress not implemented")
@@ -356,20 +356,20 @@ func RegisterWalletAccountServiceServer(s grpc.ServiceRegistrar, srv WalletAccou
 	s.RegisterService(&WalletAccountService_ServiceDesc, srv)
 }
 
-func _WalletAccountService_GetSupportCoins_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SupportCoinsRequest)
+func _WalletAccountService_GetSupportChains_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SupportChainsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WalletAccountServiceServer).GetSupportCoins(ctx, in)
+		return srv.(WalletAccountServiceServer).GetSupportChains(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: WalletAccountService_GetSupportCoins_FullMethodName,
+		FullMethod: WalletAccountService_GetSupportChains_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WalletAccountServiceServer).GetSupportCoins(ctx, req.(*SupportCoinsRequest))
+		return srv.(WalletAccountServiceServer).GetSupportChains(ctx, req.(*SupportChainsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -688,8 +688,8 @@ var WalletAccountService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*WalletAccountServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "getSupportCoins",
-			Handler:    _WalletAccountService_GetSupportCoins_Handler,
+			MethodName: "getSupportChains",
+			Handler:    _WalletAccountService_GetSupportChains_Handler,
 		},
 		{
 			MethodName: "convertAddress",

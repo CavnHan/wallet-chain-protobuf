@@ -1,8 +1,11 @@
 syntax = "proto3";
-package  proto;
+
+package proto;
+
 option go_package = "./go/common";
 
 enum ReturnCode{
-  SUCCESS = 0;
-  ERROR = 1;
+    SUCCESS = 0;
+    ERROR = 1;
 }
+
