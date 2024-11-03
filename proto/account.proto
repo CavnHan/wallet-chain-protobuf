@@ -140,6 +140,28 @@ message BlockHeaderNumberRequest{
   string status = 3;
 }
 
+message BlockHeader{
+  string parent_hash = 3;
+  string uncle_hash = 4;
+  string coin_base = 5;
+  string root = 6;
+  string tx_hash = 7;
+  string receipt_hash = 8;
+  string parent_beacon_root = 9;
+  string difficulty = 10;
+  string number = 11;
+  uint64 gas_limit = 12;
+  uint64 gas_used = 13;
+  uint64 time = 14;
+  string extra = 15;
+  string mix_digest = 16;
+  string nonce = 17;
+  string base_fee = 18;
+  string withdrawals_hash = 19;
+  uint64 blob_gas_used = 20;
+  uint64 excess_blob_gas = 21;
+}
+
 message BlockHeaderResponse{
   ReturnCode code = 1;
   string msg = 2;
@@ -162,6 +184,7 @@ message BlockHeaderResponse{
   string withdrawals_hash = 19;
   uint64 blob_gas_used = 20;
   uint64 excess_blob_gas = 21;
+  BlockHeader block_header = 22;
 }
 
 message AccountRequest{
@@ -180,6 +203,8 @@ message AccountResponse {
   string account_number = 3;
   string sequence = 4;
   string network = 5;
+  string balance = 6;
+
 }
 
 message FeeRequest {
