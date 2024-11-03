@@ -1,8 +1,9 @@
 syntax = "proto3";
 
 import "proto/common.proto";
+
 option go_package = "./go/account";
-package proto;
+package proto.account;
 
 enum TxStatus{
   NotFound = 0;

@@ -19,24 +19,24 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	WalletAccountService_GetSupportChains_FullMethodName        = "/proto.WalletAccountService/getSupportChains"
-	WalletAccountService_ConvertAddress_FullMethodName          = "/proto.WalletAccountService/convertAddress"
-	WalletAccountService_ValidAddress_FullMethodName            = "/proto.WalletAccountService/validAddress"
-	WalletAccountService_GetBlockByNumber_FullMethodName        = "/proto.WalletAccountService/getBlockByNumber"
-	WalletAccountService_GetBlockByHash_FullMethodName          = "/proto.WalletAccountService/getBlockByHash"
-	WalletAccountService_GetBlockHeaderByHash_FullMethodName    = "/proto.WalletAccountService/getBlockHeaderByHash"
-	WalletAccountService_GetBlockHeaderByNumber_FullMethodName  = "/proto.WalletAccountService/getBlockHeaderByNumber"
-	WalletAccountService_GetAccount_FullMethodName              = "/proto.WalletAccountService/getAccount"
-	WalletAccountService_GetFee_FullMethodName                  = "/proto.WalletAccountService/getFee"
-	WalletAccountService_SendTx_FullMethodName                  = "/proto.WalletAccountService/SendTx"
-	WalletAccountService_GetTxByAddress_FullMethodName          = "/proto.WalletAccountService/getTxByAddress"
-	WalletAccountService_GetTxByHash_FullMethodName             = "/proto.WalletAccountService/getTxByHash"
-	WalletAccountService_GetBlockByRange_FullMethodName         = "/proto.WalletAccountService/getBlockByRange"
-	WalletAccountService_CreateUnSignTransaction_FullMethodName = "/proto.WalletAccountService/createUnSignTransaction"
-	WalletAccountService_BuildSignedTransaction_FullMethodName  = "/proto.WalletAccountService/buildSignedTransaction"
-	WalletAccountService_DecodeTransaction_FullMethodName       = "/proto.WalletAccountService/decodeTransaction"
-	WalletAccountService_VerifySignedTransaction_FullMethodName = "/proto.WalletAccountService/verifySignedTransaction"
-	WalletAccountService_GetExtraData_FullMethodName            = "/proto.WalletAccountService/getExtraData"
+	WalletAccountService_GetSupportChains_FullMethodName        = "/proto.account.WalletAccountService/getSupportChains"
+	WalletAccountService_ConvertAddress_FullMethodName          = "/proto.account.WalletAccountService/convertAddress"
+	WalletAccountService_ValidAddress_FullMethodName            = "/proto.account.WalletAccountService/validAddress"
+	WalletAccountService_GetBlockByNumber_FullMethodName        = "/proto.account.WalletAccountService/getBlockByNumber"
+	WalletAccountService_GetBlockByHash_FullMethodName          = "/proto.account.WalletAccountService/getBlockByHash"
+	WalletAccountService_GetBlockHeaderByHash_FullMethodName    = "/proto.account.WalletAccountService/getBlockHeaderByHash"
+	WalletAccountService_GetBlockHeaderByNumber_FullMethodName  = "/proto.account.WalletAccountService/getBlockHeaderByNumber"
+	WalletAccountService_GetAccount_FullMethodName              = "/proto.account.WalletAccountService/getAccount"
+	WalletAccountService_GetFee_FullMethodName                  = "/proto.account.WalletAccountService/getFee"
+	WalletAccountService_SendTx_FullMethodName                  = "/proto.account.WalletAccountService/SendTx"
+	WalletAccountService_GetTxByAddress_FullMethodName          = "/proto.account.WalletAccountService/getTxByAddress"
+	WalletAccountService_GetTxByHash_FullMethodName             = "/proto.account.WalletAccountService/getTxByHash"
+	WalletAccountService_GetBlockByRange_FullMethodName         = "/proto.account.WalletAccountService/getBlockByRange"
+	WalletAccountService_CreateUnSignTransaction_FullMethodName = "/proto.account.WalletAccountService/createUnSignTransaction"
+	WalletAccountService_BuildSignedTransaction_FullMethodName  = "/proto.account.WalletAccountService/buildSignedTransaction"
+	WalletAccountService_DecodeTransaction_FullMethodName       = "/proto.account.WalletAccountService/decodeTransaction"
+	WalletAccountService_VerifySignedTransaction_FullMethodName = "/proto.account.WalletAccountService/verifySignedTransaction"
+	WalletAccountService_GetExtraData_FullMethodName            = "/proto.account.WalletAccountService/getExtraData"
 )
 
 // WalletAccountServiceClient is the client API for WalletAccountService service.
@@ -684,7 +684,7 @@ func _WalletAccountService_GetExtraData_Handler(srv interface{}, ctx context.Con
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var WalletAccountService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.WalletAccountService",
+	ServiceName: "proto.account.WalletAccountService",
 	HandlerType: (*WalletAccountServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
