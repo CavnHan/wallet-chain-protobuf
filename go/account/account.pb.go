@@ -7,7 +7,7 @@
 package account
 
 import (
-	common "github.com/CavnHan/wallet-chain-protobuf/go/common"
+	common "./go/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

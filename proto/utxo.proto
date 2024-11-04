@@ -68,6 +68,7 @@ message ConvertAddressRequest{
   string chain = 2;
   string network = 3;
   bytes public_key = 4;
+  string format = 5;
 }
 
 message ConvertAddressResponse{
@@ -82,6 +83,7 @@ message ValidAddressRequest{
   string network = 3;
   string symbol = 4;
   string address = 5;
+  string format = 6;
 }
 
 message ValidAddressResponse{
@@ -195,6 +197,8 @@ message BlockHeaderResponse{
   string msg = 2;
   string parent_hash = 3;
   string number = 4;
+  string blockhash = 5;    
+	string merkleroot = 6;
 }
 
 message SendTxRequest{
@@ -314,3 +318,7 @@ service WalletUtxoService {
   rpc decodeTransaction(DecodeTransactionRequest) returns(DecodeTransactionResponse){}
   rpc verifySignedTransaction(VerifyTransactionRequest) returns(VerifyTransactionResponse){}
 }
+
+
+
+
