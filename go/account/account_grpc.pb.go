@@ -26,12 +26,12 @@ const (
 	WalletAccountService_GetBlockByHash_FullMethodName          = "/proto.account.WalletAccountService/getBlockByHash"
 	WalletAccountService_GetBlockHeaderByHash_FullMethodName    = "/proto.account.WalletAccountService/getBlockHeaderByHash"
 	WalletAccountService_GetBlockHeaderByNumber_FullMethodName  = "/proto.account.WalletAccountService/getBlockHeaderByNumber"
+	WalletAccountService_GetBlockHeaderByRange_FullMethodName   = "/proto.account.WalletAccountService/getBlockHeaderByRange"
 	WalletAccountService_GetAccount_FullMethodName              = "/proto.account.WalletAccountService/getAccount"
 	WalletAccountService_GetFee_FullMethodName                  = "/proto.account.WalletAccountService/getFee"
 	WalletAccountService_SendTx_FullMethodName                  = "/proto.account.WalletAccountService/SendTx"
 	WalletAccountService_GetTxByAddress_FullMethodName          = "/proto.account.WalletAccountService/getTxByAddress"
 	WalletAccountService_GetTxByHash_FullMethodName             = "/proto.account.WalletAccountService/getTxByHash"
-	WalletAccountService_GetBlockByRange_FullMethodName         = "/proto.account.WalletAccountService/getBlockByRange"
 	WalletAccountService_CreateUnSignTransaction_FullMethodName = "/proto.account.WalletAccountService/createUnSignTransaction"
 	WalletAccountService_BuildSignedTransaction_FullMethodName  = "/proto.account.WalletAccountService/buildSignedTransaction"
 	WalletAccountService_DecodeTransaction_FullMethodName       = "/proto.account.WalletAccountService/decodeTransaction"
@@ -50,12 +50,12 @@ type WalletAccountServiceClient interface {
 	GetBlockByHash(ctx context.Context, in *BlockHashRequest, opts ...grpc.CallOption) (*BlockResponse, error)
 	GetBlockHeaderByHash(ctx context.Context, in *BlockHeaderHashRequest, opts ...grpc.CallOption) (*BlockHeaderResponse, error)
 	GetBlockHeaderByNumber(ctx context.Context, in *BlockHeaderNumberRequest, opts ...grpc.CallOption) (*BlockHeaderResponse, error)
+	GetBlockHeaderByRange(ctx context.Context, in *BlockByRangeRequest, opts ...grpc.CallOption) (*BlockByRangeResponse, error)
 	GetAccount(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*AccountResponse, error)
 	GetFee(ctx context.Context, in *FeeRequest, opts ...grpc.CallOption) (*FeeResponse, error)
 	SendTx(ctx context.Context, in *SendTxRequest, opts ...grpc.CallOption) (*SendTxResponse, error)
 	GetTxByAddress(ctx context.Context, in *TxAddressRequest, opts ...grpc.CallOption) (*TxAddressResponse, error)
 	GetTxByHash(ctx context.Context, in *TxHashRequest, opts ...grpc.CallOption) (*TxHashResponse, error)
-	GetBlockByRange(ctx context.Context, in *BlockByRangeRequest, opts ...grpc.CallOption) (*BlockByRangeResponse, error)
 	CreateUnSignTransaction(ctx context.Context, in *UnSignTransactionRequest, opts ...grpc.CallOption) (*UnSignTransactionResponse, error)
 	BuildSignedTransaction(ctx context.Context, in *SignedTransactionRequest, opts ...grpc.CallOption) (*SignedTransactionResponse, error)
 	DecodeTransaction(ctx context.Context, in *DecodeTransactionRequest, opts ...grpc.CallOption) (*DecodeTransactionResponse, error)
@@ -141,6 +141,16 @@ func (c *walletAccountServiceClient) GetBlockHeaderByNumber(ctx context.Context,
 	return out, nil
 }
 
+func (c *walletAccountServiceClient) GetBlockHeaderByRange(ctx context.Context, in *BlockByRangeRequest, opts ...grpc.CallOption) (*BlockByRangeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BlockByRangeResponse)
+	err := c.cc.Invoke(ctx, WalletAccountService_GetBlockHeaderByRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *walletAccountServiceClient) GetAccount(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*AccountResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AccountResponse)
@@ -185,16 +195,6 @@ func (c *walletAccountServiceClient) GetTxByHash(ctx context.Context, in *TxHash
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(TxHashResponse)
 	err := c.cc.Invoke(ctx, WalletAccountService_GetTxByHash_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *walletAccountServiceClient) GetBlockByRange(ctx context.Context, in *BlockByRangeRequest, opts ...grpc.CallOption) (*BlockByRangeResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(BlockByRangeResponse)
-	err := c.cc.Invoke(ctx, WalletAccountService_GetBlockByRange_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -262,12 +262,12 @@ type WalletAccountServiceServer interface {
 	GetBlockByHash(context.Context, *BlockHashRequest) (*BlockResponse, error)
 	GetBlockHeaderByHash(context.Context, *BlockHeaderHashRequest) (*BlockHeaderResponse, error)
 	GetBlockHeaderByNumber(context.Context, *BlockHeaderNumberRequest) (*BlockHeaderResponse, error)
+	GetBlockHeaderByRange(context.Context, *BlockByRangeRequest) (*BlockByRangeResponse, error)
 	GetAccount(context.Context, *AccountRequest) (*AccountResponse, error)
 	GetFee(context.Context, *FeeRequest) (*FeeResponse, error)
 	SendTx(context.Context, *SendTxRequest) (*SendTxResponse, error)
 	GetTxByAddress(context.Context, *TxAddressRequest) (*TxAddressResponse, error)
 	GetTxByHash(context.Context, *TxHashRequest) (*TxHashResponse, error)
-	GetBlockByRange(context.Context, *BlockByRangeRequest) (*BlockByRangeResponse, error)
 	CreateUnSignTransaction(context.Context, *UnSignTransactionRequest) (*UnSignTransactionResponse, error)
 	BuildSignedTransaction(context.Context, *SignedTransactionRequest) (*SignedTransactionResponse, error)
 	DecodeTransaction(context.Context, *DecodeTransactionRequest) (*DecodeTransactionResponse, error)
@@ -303,6 +303,9 @@ func (UnimplementedWalletAccountServiceServer) GetBlockHeaderByHash(context.Cont
 func (UnimplementedWalletAccountServiceServer) GetBlockHeaderByNumber(context.Context, *BlockHeaderNumberRequest) (*BlockHeaderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBlockHeaderByNumber not implemented")
 }
+func (UnimplementedWalletAccountServiceServer) GetBlockHeaderByRange(context.Context, *BlockByRangeRequest) (*BlockByRangeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBlockHeaderByRange not implemented")
+}
 func (UnimplementedWalletAccountServiceServer) GetAccount(context.Context, *AccountRequest) (*AccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAccount not implemented")
 }
@@ -317,9 +320,6 @@ func (UnimplementedWalletAccountServiceServer) GetTxByAddress(context.Context, *
 }
 func (UnimplementedWalletAccountServiceServer) GetTxByHash(context.Context, *TxHashRequest) (*TxHashResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTxByHash not implemented")
-}
-func (UnimplementedWalletAccountServiceServer) GetBlockByRange(context.Context, *BlockByRangeRequest) (*BlockByRangeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBlockByRange not implemented")
 }
 func (UnimplementedWalletAccountServiceServer) CreateUnSignTransaction(context.Context, *UnSignTransactionRequest) (*UnSignTransactionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUnSignTransaction not implemented")
@@ -482,6 +482,24 @@ func _WalletAccountService_GetBlockHeaderByNumber_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WalletAccountService_GetBlockHeaderByRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BlockByRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WalletAccountServiceServer).GetBlockHeaderByRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WalletAccountService_GetBlockHeaderByRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WalletAccountServiceServer).GetBlockHeaderByRange(ctx, req.(*BlockByRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _WalletAccountService_GetAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AccountRequest)
 	if err := dec(in); err != nil {
@@ -568,24 +586,6 @@ func _WalletAccountService_GetTxByHash_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WalletAccountServiceServer).GetTxByHash(ctx, req.(*TxHashRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _WalletAccountService_GetBlockByRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BlockByRangeRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(WalletAccountServiceServer).GetBlockByRange(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: WalletAccountService_GetBlockByRange_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WalletAccountServiceServer).GetBlockByRange(ctx, req.(*BlockByRangeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -716,6 +716,10 @@ var WalletAccountService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _WalletAccountService_GetBlockHeaderByNumber_Handler,
 		},
 		{
+			MethodName: "getBlockHeaderByRange",
+			Handler:    _WalletAccountService_GetBlockHeaderByRange_Handler,
+		},
+		{
 			MethodName: "getAccount",
 			Handler:    _WalletAccountService_GetAccount_Handler,
 		},
@@ -734,10 +738,6 @@ var WalletAccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "getTxByHash",
 			Handler:    _WalletAccountService_GetTxByHash_Handler,
-		},
-		{
-			MethodName: "getBlockByRange",
-			Handler:    _WalletAccountService_GetBlockByRange_Handler,
 		},
 		{
 			MethodName: "createUnSignTransaction",
